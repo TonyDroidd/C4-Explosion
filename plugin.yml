@@ -1,0 +1,7 @@
+---
+name: C4
+author: TonyDroidd
+api: 1.12.0
+description: A simple plugin that add C4 to your server
+version: 1.0
+main: TDroidd\C4\Main

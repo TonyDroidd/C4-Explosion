@@ -1,0 +1,11 @@
+# Config File For C4 Plugin, By @TDroidd
+
+C4-Block: 19
+#Block that will be used as C4
+
+Remove-Terrain: false
+#true = Remove terrain and damage players like a real TNT explosion
+#false = Damage players, but not remove terrain
+
+Explosion-Radius: 5
+#Radius of the explosion
