@@ -57,9 +57,9 @@ class Main extends PluginBase implements Listener{
         public function onMove(PlayerMoveEvent $event){
         $cfg = $this->getConfig();
         $player = $event->getPlayer();
-        $c4 = $block = $player->getLevel()->getBlockIdAt($player->x, ($player->y -0.1), $player->z);
+            $c4 = $event->getPlayer()->getLevel()->getBlock($event->getPlayer()->floor()->subtract(0, 1));
         $e = new Explosion($player, $cfg->get("Explosion-Radius"));
-        if($c4 === $cfg->get("C4-Block")){
+            if($c4->getId() === $cfg->get("C4-Block")) {
             if($cfg->get("Remove-Terrain") == true){
                 $player->sendMessage(TextFormat::YELLOW . "[C-4]" . TextFormat::RED . " Booom!!");
                 $e->explodeA();
