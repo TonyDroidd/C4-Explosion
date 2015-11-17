@@ -1,6 +1,7 @@
 <?php
 namespace TDroidd\C4;
 
+use pocketmine\command\CommandExecutor;
 use pocketmine\Player;
 use pocketmine\level\Level;
 use pocketmine\level\Position;
@@ -8,6 +9,8 @@ use pocketmine\level\Explosion;
 use pocketmine\block\Block;
 
 use pocketmine\event\player\PlayerMoveEvent;
+use pocketmine\command\CommandSender;
+use pocketmine\command\Command;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat;
@@ -23,7 +26,35 @@ class Main extends PluginBase implements Listener{
 
     }
 
-    public function onMove(PlayerMoveEvent $event){
+
+    public function onCommand(CommandSender $sender, Command $command, $label, array $args){
+        if($command->getName() === "boom") {
+            if(count($args)) {
+                if(!isset($args[1])) {
+                    $sender->sendMessage("Usage: /boom <radius> true|false");
+                    return false;
+                }
+                    if(is_numeric($args[0])) {
+                        $sender->sendMessage(TextFormat::YELLOW . "Boom!");
+                        $e = new Explosion($sender, $args[0]);
+                        switch ($args[1]) {
+                            case "true":
+                                $e->explodeA();
+                                $e->explodeB();
+                                break;
+                            case "false":
+                                $e->explodeB();
+                                break;
+                        }
+                    } else {
+                        $sender->sendMessage(TextFormat::RED . "Select radius in numeric value!");
+                        return;
+                    }
+            }
+        }
+    }
+
+        public function onMove(PlayerMoveEvent $event){
         $cfg = $this->getConfig();
         $player = $event->getPlayer();
         $c4 = $block = $player->getLevel()->getBlockIdAt($player->x, ($player->y -0.1), $player->z);
